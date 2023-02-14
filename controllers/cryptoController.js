@@ -3,6 +3,11 @@ const { isAuthorized } = require('../middlewares/authMiddleware');
 const cryptoService = require('../services/cryptoService');
 const { getErrorMessage } = require('../utils/errorUtils');
 
+router.get('/catalog', async (req, res) => {
+    const crypto = await cryptoService.getAll();
+    res.render('crypto/catalog', { crypto });
+});
+
 router.get('/create', isAuthorized, (req, res) => {
     res.render('crypto/create');
 });
