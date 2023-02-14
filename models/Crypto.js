@@ -3,19 +3,23 @@ const mongoose = require('mongoose');
 const cryptoSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        minLength: [2, 'Crypto name must be at leat 2 characters long!']
     },
     imageUrl: {
         type: String,
-        required: true
+        required: true,
+        validate: /^https?:\/\/./
     },
     price: {
         type: Number,
+        min: [0, 'Price should be positive number!'],
         requred: true
     },
     description: {
         type: String,
-        requred: true
+        requred: true,
+        minLength: [10, 'Crypto descriptiom must be at least 10 characters long!']
     },
     paymentMethod: {
         type: String,

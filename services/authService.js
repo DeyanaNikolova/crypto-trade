@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('../lib/jsonwebtoken');
 const { SECRET } = require('../constants');
+const { Error } = require('mongoose');
 
 
 exports.findByUsername = (username) => User.findOne({ username });
@@ -9,7 +10,7 @@ exports.findByEmail = (email) => User.findOne({ email });
 
 
 exports.register = async (username, email, password, confirmPassword) => {
-  // validate password
+
   if (password !== confirmPassword) {
     throw new Error('Password missmatch!');
   }
@@ -25,9 +26,9 @@ exports.register = async (username, email, password, confirmPassword) => {
   if (existingUser) {
     throw new Error('Username exists!');
   }
-
-
-  // TODO: Validate password length
+  if(password.length < 4){
+    throw new Error('Password must be minimum 4 characters long!');
+  }
 
   const hashedPass = await bcrypt.hash(password, 10);
   await User.create({ username, email, password: hashedPass });
