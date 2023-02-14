@@ -15,3 +15,6 @@ exports.buy = async (userId, cryptoId) => {
 
 exports.create = (ownerId, cryptoData) => Crypto.create({ ...cryptoData, owner: ownerId });
 
+exports.edit = (cryptoId, cryptoData) => Crypto.findByIdAndUpdate(cryptoId, cryptoData);
+
+exports.deleteCrypto = (cryptoId) => Crypto.findByIdAndDelete(cryptoId);

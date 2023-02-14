@@ -31,7 +31,7 @@ const cryptoSchema = new mongoose.Schema({
     },
     buyers: [{
         type: mongoose.Types.ObjectId,
-        ref: 'User'
+        ref: 'User'   
     }]
 });
 
