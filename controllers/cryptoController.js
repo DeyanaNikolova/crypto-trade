@@ -8,6 +8,11 @@ router.get('/catalog', async (req, res) => {
     res.render('crypto/catalog', { crypto });
 });
 
+router.get('/:cryptoId/details', async (req, res) => {
+    const crypto = await cryptoService.getById(req.params.cryptoId);
+    res.render('crypto/details', { crypto });
+});
+
 router.get('/create', isAuthorized, (req, res) => {
     res.render('crypto/create');
 });
