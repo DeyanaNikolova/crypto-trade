@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const cryptoSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -20,11 +19,18 @@ const cryptoSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        emun: ['crypto-wallet', 'credit-card', 'debit-card', 'paypal'],
+        emun: {
+            values: ['crypto-wallet', 'credit-card', 'debit-card', 'paypal'],
+            message: 'Invalid payment method!'
+        },
         required: true
     },
     owner: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }
-})
+});
+
+const Crypto = mongoose.model('Crypto', cryptoSchema);
+
+module.exports = Crypto;
